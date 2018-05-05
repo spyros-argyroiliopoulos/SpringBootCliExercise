@@ -10,14 +10,22 @@ import com.codehub.spring.core.domain.Triangle;
 import com.codehub.spring.core.repository.TriangleRepository;
 
 @Service
-public class TriangleServiceImpl implements TriangleService {
+public class TriangleServiceImpl implements ShapeService {
 
     @Autowired
     private TriangleRepository triangleRepository;
 
-    public double findLargerArea() {
+    @Override
+    public double findLargestArea() {
         List<Triangle> triangleList = triangleRepository.getTriangles();
         triangleList.sort(Comparator.comparing(Triangle::area).reversed());
         return triangleList.get(0).area();
+    }
+
+    @Override
+    public double findShortestLength() {
+        List<Triangle> triangleList = triangleRepository.getTriangles();
+        triangleList.sort(Comparator.comparing(Triangle::circumference));
+        return triangleList.get(0).circumference();
     }
 }

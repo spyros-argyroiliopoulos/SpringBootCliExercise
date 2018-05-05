@@ -4,8 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
-import com.codehub.spring.core.service.LineService;
-import com.codehub.spring.core.service.TriangleService;
+import com.codehub.spring.core.controller.ShapeController;
 
 @SpringBootApplication
 public class SpringBootCliExerciseApplication {
@@ -13,10 +12,8 @@ public class SpringBootCliExerciseApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootCliExerciseApplication.class, args);
 		ApplicationContext ctx = SpringApplication.run(SpringBootCliExerciseApplication.class, args);
-		TriangleService triangleService = (TriangleService) ctx.getBean("triangleServiceImpl");
-		System.out.println(triangleService.findLargerArea());
-
-		LineService lineService = (LineService) ctx.getBean("lineServiceImpl");
-		System.out.println(lineService.findShortestLine());
+		ShapeController controller = (ShapeController) ctx.getBean("shapeController");
+		System.out.println(controller.getArea());
+		System.out.println(controller.getLength());
 	}
 }

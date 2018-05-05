@@ -10,14 +10,20 @@ import com.codehub.spring.core.domain.basic.Line;
 import com.codehub.spring.core.repository.LineRepository;
 
 @Service
-public class LineServiceImpl implements LineService {
+public class LineServiceImpl implements ShapeService {
 
     @Autowired
     private LineRepository lineRepository;
 
-    public double findShortestLine() {
+    @Override
+    public double findShortestLength() {
         List<Line> lineList = lineRepository.getLines();
-        lineList.sort(Comparator.comparing(Line::distance));
+        lineList.sort(Comparator.comparingDouble(Line::distance));
         return lineList.get(0).distance();
+    }
+
+    @Override
+    public double findLargestArea() {
+        throw new UnsupportedOperationException("Lines have no Area!");
     }
 }

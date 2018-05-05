@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import com.codehub.spring.core.domain.Triangle;
+import com.codehub.spring.core.domain.basic.Line;
 import com.codehub.spring.core.domain.basic.Point;
 import com.codehub.spring.core.utilities.PointReader;
 
 @Repository
-public class TriangleRepositoryImpl implements TriangleRepository {
+public class LineRepositoryCsvImpl implements LineRepository {
 
     @Value("${csv.file.name}")
     private String fileName;
@@ -20,15 +20,13 @@ public class TriangleRepositoryImpl implements TriangleRepository {
     @Autowired
     private PointReader pointReader;
 
-    public List<Triangle> getTriangles() {
+    public List<Line> getLines() {
         List<Point> pointList = getPoints();
-        List<Triangle> triangleList = new ArrayList<>();
-        for (int i = 2; i < pointList.size(); i += 3) {
-            Triangle tr = new Triangle(pointList.get(i-2), pointList.get(i-1), pointList.get(i));
-            //System.out.println(tr.area());
-            triangleList.add(tr);
+        List<Line> lineList = new ArrayList<>();
+        for (int i = 1; i < pointList.size(); i += 2) {
+            lineList.add(new Line(pointList.get(i-1), pointList.get(i)));
         }
-        return triangleList;
+        return lineList;
     }
 
     private List<Point> getPoints() {
